@@ -6,7 +6,7 @@ Created on Sep 12, 2012
 import ConfigParser
 import urllib2
 import sqlite3
-import dateutil.parser
+import datetime as DT
 import smtplib
 
 from optparse import OptionParser
@@ -59,8 +59,8 @@ def shouldSendEmail():
         result = cursor.fetchone()
         
         if result is not None:
-            emailDate = dateutil.parser.parse(result[0])
-            timeDiff =  dateutil.parser.parse(timestamp.isoformat()) - emailDate
+            emailDate = DT.datetime.strptime(result[0], '%Y-%m-%d')
+            timeDiff =  DT.datetime.strptime(timestamp.isoformat(), '%Y-%m-%d') - emailDate
             if timeDiff.days > 3:
                 print 'Last email sent more than 3 day ago'
                 sendEmail(water_message.format(rainfall))
