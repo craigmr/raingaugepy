@@ -25,7 +25,7 @@ def fetchRainfall(station):
     
     onlyTables = SoupStrainer(class_="contentData") 
     
-    soup = BeautifulSoup(html.encode("utf8"), "lxml", parse_only=onlyTables)
+    soup = BeautifulSoup(html, "lxml", parse_only=onlyTables)
     contentTable = soup.find(text='Precipitation:')
     contentTable = contentTable.find_parent('tr')
     
